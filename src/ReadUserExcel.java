@@ -7,10 +7,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.io.InputStream;
 
 public class ReadUserExcel {
+    /*
+    readExcel是什么方法？成员方法
+     */
     public User[] readExcel(InputStream in) {
         User users[] = null;
         try {
@@ -19,22 +22,22 @@ public class ReadUserExcel {
             users = new User[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
-                User user = new User();//每循环一次就把电子表格的一行的数据给对象赋值
+                User user = new User();
                 for (int k = 0; k <= row.getLastCellNum(); k++) {
                     XSSFCell cell = row.getCell(k);
                     if (cell == null)
                         continue;
                     if (k == 0) {
-                        user.setUsername(this.getValue(cell));//给username属性赋值
+                        user.setUsername(this.getValue(cell));
                     } else if (k == 1) {
-                        user.setPassword(this.getValue(cell));//给password属性赋值
+                        user.setPassword(this.getValue(cell));
                     } else if (k == 2) {
-                        user.setAddress(this.getValue(cell));//给address属性赋值
+                        user.setAddress(this.getValue(cell));
                     } else if (k == 3) {
-                        user.setPhone(this.getValue(cell));//给phone属性赋值
+                        user.setPhone(this.getValue(cell));
                     }
+                    users[j - 1] = user;
                 }
-                users[j-1] = user;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,6 +49,7 @@ public class ReadUserExcel {
         String value;
         CellType type = cell.getCellTypeEnum();
         DecimalFormat df = new DecimalFormat("#");
+
         switch (type) {
             case STRING:
                 value = cell.getStringCellValue();
@@ -58,7 +62,6 @@ public class ReadUserExcel {
                 break;
             case NUMERIC:
                 value = df.format(cell.getNumericCellValue());//double和一个空字符串相连接，最终得到字符串
-                System.out.println("转换后的："+value);
                 break;
             case FORMULA:
                 value = cell.getCellFormula();
