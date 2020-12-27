@@ -7,8 +7,8 @@ public class Test {
         读取文件
          */
         File file=new File("C:\\Users\\swagg\\IdeaProjects\\CmdShop\\src\\users.xlsx");//导入工作簿
-        ReadExcel readExcel=new ReadExcel();//创建对象
-        User users[]=readExcel.readExcel(file);
+        ReadUserExcel readUserExcel =new ReadUserExcel();//创建对象
+        User users[]= readUserExcel.readExcel(file);
         /*
         输入用户名密码进行登陆验证
          */

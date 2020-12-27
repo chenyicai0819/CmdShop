@@ -7,8 +7,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
-public class ReadExcel {
+public class ReadUserExcel {
     /*
     readExcel是什么方法？成员方法
      */
@@ -34,7 +37,7 @@ public class ReadExcel {
                     } else if (k == 3) {
                         user.setPhone(this.getValue(cell));
                     }
-                    users[j-1]=user;
+                    users[j - 1] = user;
                 }
             }
         } catch (IOException e) {
@@ -46,6 +49,7 @@ public class ReadExcel {
     private String getValue(XSSFCell cell) {
         String value;
         CellType type = cell.getCellTypeEnum();
+        DecimalFormat df = new DecimalFormat("#");
 
         switch (type) {
             case STRING:
@@ -58,7 +62,7 @@ public class ReadExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
-                value = cell.getNumericCellValue() + "";
+                value = df.format(cell.getNumericCellValue());//double和一个空字符串相连接，最终得到字符串
                 break;
             case FORMULA:
                 value = cell.getCellFormula();
