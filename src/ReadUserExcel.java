@@ -8,17 +8,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.io.InputStream;
 
 public class ReadUserExcel {
     /*
     readExcel是什么方法？成员方法
      */
-    public User[] readExcel(File file) {
+    public User[] readExcel(InputStream in) {
         User users[] = null;
         try {
-            XSSFWorkbook xw = new XSSFWorkbook(new FileInputStream(file));
+            XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
             users = new User[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
