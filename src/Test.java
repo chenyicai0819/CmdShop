@@ -57,6 +57,7 @@ public class Test {
                     inProduct = null;
                     inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
                     Product product= readProductExcel.getProductById(pID, inProduct);
+                    System.out.println("所购买的商品的价格为");
                     if(product!=null){
                         carts[count++]=product;
                     }
@@ -64,9 +65,36 @@ public class Test {
                     System.out.println("继续添加购物车请按1");
                     System.out.println("查看购物车请按2");
 
+                    int choose=sc.nextInt();
+                    if(choose == 1){
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        System.out.println("以下是商城中的商品");
+                        readProductExcel = new ReadProductExcel();
+                        products = readProductExcel.getAllExcel(inProduct);
+                        for (Product newproduct : products) {
+                            System.out.print(newproduct.getpID());
+                            System.out.print("\t" + newproduct.getpName());
+                            System.out.print("\t" + newproduct.getPrice());
+                            System.out.println("\t" + newproduct.getpDesc());
+                        }
+                        System.out.println("请输入想要购买的商品ID添加商品到购物车");
+                        pID = sc.next();
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        product= readProductExcel.getProductById(pID, inProduct);
+                        System.out.println("所购买的商品的价格为");
+                        if(product!=null){
+                            carts[count++]=product;
+                        }
+                    }else if(choose==2){
+                        /*
+                        查看购物车
+                         */
+                    }
 
                     break;
-                } else {
+                } else if(i == users.length-1){
                     System.out.println("登录失败");
                 }
             }
