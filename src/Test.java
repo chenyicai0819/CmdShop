@@ -72,48 +72,28 @@ public class Test {
                         int panduan = 1;
                         if (choose == 1) {
 
-                            while (panduan == 1) {
-                                inProduct = null;
-                                inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
-                                System.out.println("以下是商城中的商品");
-                                readProductExcel = new ReadProductExcel();
-                                products = readProductExcel.getAllExcel(inProduct);
-                                for (Product newproduct : products) {
-                                    System.out.print(newproduct.getpID());
-                                    System.out.print("\t" + newproduct.getpName());
-                                    System.out.print("\t" + newproduct.getPrice());
-                                    System.out.println("\t" + newproduct.getpDesc());
-                                }
-                                System.out.println("请输入想要购买的商品ID添加商品到购物车");
-                                pID = sc.next();
-                                inProduct = null;
-                                inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
-                                product = readProductExcel.getProductById(pID, inProduct);
-                                System.out.println("所购买的商品的价格为" + product.getPrice());
-                                if (product != null) {
-                                    carts[count++] = product;
-                                }
-
-                                System.out.println("继续商品选购请按1");
-                                System.out.println("退出商品选购请按2");
-                                panduan = sc.nextInt();
-                                if (panduan == 1) {
-                                    continue;
-                                }
-                                if (panduan == 2) {
-                                    break;
-                                }
-
-
-
-
+                            inProduct = null;
+                            inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
+                            System.out.println("以下是商城中的商品");
+                            readProductExcel = new ReadProductExcel();
+                            products = readProductExcel.getAllExcel(inProduct);
+                            for (Product newproduct : products) {
+                                System.out.print(newproduct.getpID());
+                                System.out.print("\t" + newproduct.getpName());
+                                System.out.print("\t" + newproduct.getPrice());
+                                System.out.println("\t" + newproduct.getpDesc());
                             }
-                        } /*else if (choose != 1) {*/
-                        /*
-                        查看购物车
-                        for循环遍历数组
-                         */
-                        if (choose == 2) {
+                            System.out.println("请输入想要购买的商品ID添加商品到购物车");
+                            pID = sc.next();
+                            inProduct = null;
+                            inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
+                            product = readProductExcel.getProductById(pID, inProduct);
+                            System.out.println("所购买的商品的价格为" + product.getPrice());
+                            if (product != null) {
+                                carts[count++] = product;
+                            }
+                        } else if (choose == 2) {
+                            System.out.println("这是您的购物车");
                             for (Product gouwuche : carts) {
                                 if (gouwuche != null) {
                                     System.out.print(gouwuche.getpID());
@@ -122,29 +102,26 @@ public class Test {
                                     System.out.println("\t" + gouwuche.getpDesc());
                                 }
                             }
+
+                        } else if (choose == 3) {
+                            System.out.println("您购买的商品为：");
                             /*
-                            System.out.println("退出购物车请按1");
-
-                            panduan = sc.nextInt();
-                            if (panduan == 1) {
-                                continue;
+                            if (carts != null) {
+                                for (int is = 0; is < carts.length; is++) {
+                                    System.out.println(carts[is].getPrice());
+                                }
                             }
-
                              */
-                        }
-                        if (choose == 3) {
-                            System.out.println("您购买的商品总额为：");
+                            for (Product p : carts) {
+                                if (p != null) {
+                                    System.out.print("\t" +p.getpName());
+                                    System.out.println("\t" +p.getPrice()+"RMB");
+                                }
+                            }
                             break;
                         }
-
-                        //}
-
-
                     }
                     break;
-
-
-
                 } else if (i == users.length - 1) {
                     System.out.println("登录失败");
                 }
