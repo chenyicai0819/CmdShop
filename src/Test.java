@@ -94,9 +94,14 @@ public class Test {
         inProduct = null;
         inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
         Product product = readProductExcel.getProductById(pID, inProduct);
-        System.out.println("所购买的商品的价格为" + product.getPrice());
-        if (product != null) {
-            carts[count++] = product;
+        if(count==carts.length){
+            System.out.println("购物车已满");
+        }
+        else{
+            System.out.println("所购买的商品的价格为" + product.getPrice());
+            if (product != null) {
+                carts[count++] = product;
+            }
         }
     }
 
