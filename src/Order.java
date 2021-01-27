@@ -2,11 +2,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 public class Order {
     private User user;
     private Product products[];
-    private int productAmmout;
+    private Map<Integer,Integer> productAmmout;
     private float totalPrice;
     private float finalPay;
     private String orderDate;
@@ -27,12 +28,11 @@ public class Order {
         this.products = products;
     }
 
-    public int getProductAmmout() {
+    public Map<Integer, Integer> getProductAmmout() {
         return productAmmout;
     }
 
-    public void setProductAmmout(int productAmmout) {
-
+    public void setProductAmmout(Map<Integer, Integer> productAmmout) {
         this.productAmmout = productAmmout;
     }
 

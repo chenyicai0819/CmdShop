@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -57,19 +59,19 @@ public class Test {
 
                             Product products[] = new Product[count];
                             int num = 0;
-
-
                             for (int j = 0; j < carts.length; j++) {
                                 if (carts[j] != null) {
                                     products[j] = carts[j];
-                                    if (products[i].getpID() == products[i++].getpID()) {
-                                        num++;
-                                        order.setProductAmmout(num);
-                                    }
                                 }
                             }
                             order.setProducts(products);
                             //下订单
+
+                            Map<Integer,Integer> ammount=new HashMap<Integer,Integer>();
+                            ammount.put(1111,2);
+                            ammount.put(2222,1);
+                            order.setProductAmmout(ammount);
+
                             CreateOrder.createOrder(order);
 
                         } else if (choose == 4) {

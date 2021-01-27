@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
 import java.io.FileOutputStream;
+import java.util.Map;
 
 public class CreateOrder {
     /**
@@ -47,16 +48,23 @@ public class CreateOrder {
                 HSSFRow row = sheet.createRow((short) i+1);
                 for (int j = 0; j < 6; j++) {
                     HSSFCell cell = row.createCell((short) j);
+                    int pId=Integer.parseInt(order.getProducts()[i].getpID());
                     if(j==0){
                         cell.setCellValue(order.getUser().getUsername());
                     }else if(j==1){
-                        cell.setCellValue(order.getProducts()[i].getpID());
+                        cell.setCellValue(pId);
                     }else if(j==2){
-                        cell.setCellValue(order.getProductAmmout());
+                        /*
+                        遍历Map
+                         */
+                        // 目录(key)内容(value)
+                        Map<Integer,Integer> ammount=order.getProductAmmout();
+                        int productNum=ammount.get(pId);
+                        cell.setCellValue(productNum);
                     }else if(j==3){
-                        cell.setCellValue(order.getProducts()[i].getPrice());
+                        //cell.setCellValue(order.getProducts()[i].getPrice());
                     }else if(j==4){
-                        cell.setCellValue(order.getFinalPay());
+                        //cell.setCellValue(order.getFinalPay());
                     }else if(j==5){
                         cell.setCellValue(order.getOrderDate());
                     }
