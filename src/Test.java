@@ -2,12 +2,14 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Scanner;
 
+
 public class Test {
     static int count = 0;
     static Product carts[] = new Product[3];
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws ClassNotFoundException {
+
         boolean bo = true;
         while (bo) {
         /*
@@ -50,21 +52,26 @@ public class Test {
                         } else if (choose == 2) {
                             viewCarts();
                         } else if (choose == 3) {
-                            System.out.println("您购买的商品为：");
-                            for (Product p : carts) {
-                                if (p != null) {
-                                    System.out.print("\t" + p.getpName());
-                                    System.out.println("\t" + p.getPrice() + "RMB");
+                            Order order = new Order();
+                            order.setUser(users[i]);
+
+                            Product products[] = new Product[count];
+                            int num = 0;
+
+
+                            for (int j = 0; j < carts.length; j++) {
+                                if (carts[j] != null) {
+                                    products[j] = carts[j];
+                                    if (products[i].getpID() == products[i++].getpID()) {
+                                        num++;
+                                        order.setProductAmmout(num);
+                                    }
                                 }
                             }
-                            System.out.println("是否结账");
-                            System.out.println("1:是   2:否");
-                            int jiezhang = sc.nextInt();
-                            if (jiezhang == 1) {
-                                System.out.println("请选择支付方式");
-                            } else if (jiezhang == 2) {
-                                continue;
-                            }
+                            order.setProducts(products);
+                            //下订单
+                            CreateOrder.createOrder(order);
+
                         } else if (choose == 4) {
                             break;
                         }
@@ -94,10 +101,9 @@ public class Test {
         inProduct = null;
         inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
         Product product = readProductExcel.getProductById(pID, inProduct);
-        if(count==carts.length){
+        if (count == carts.length) {
             System.out.println("购物车已满");
-        }
-        else{
+        } else {
             System.out.println("所购买的商品的价格为" + product.getPrice());
             if (product != null) {
                 carts[count++] = product;

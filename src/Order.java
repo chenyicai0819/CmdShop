@@ -1,4 +1,7 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Order {
     private User user;
@@ -6,7 +9,7 @@ public class Order {
     private int productAmmout;
     private float totalPrice;
     private float finalPay;
-    private Date orderDate;
+    private String orderDate;
 
     public User getUser() {
         return user;
@@ -29,6 +32,7 @@ public class Order {
     }
 
     public void setProductAmmout(int productAmmout) {
+
         this.productAmmout = productAmmout;
     }
 
@@ -48,11 +52,13 @@ public class Order {
         this.finalPay = finalPay;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        orderDate = df.format(new Date());// new Date()为获取当前系统时间
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 }

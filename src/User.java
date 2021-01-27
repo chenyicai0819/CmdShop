@@ -4,9 +4,7 @@ public class User {
     private String address;
     private String phone;
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
     public String getPassword() {
         return password;
     }
