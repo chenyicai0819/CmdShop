@@ -68,8 +68,17 @@ public class Test {
                             //下订单
 
                             Map<Integer,Integer> ammount=new HashMap<Integer,Integer>();
-                            ammount.put(1111,2);
-                            ammount.put(2222,1);
+                            for (Product gouwuche : carts) {
+                                if (gouwuche != null) {
+                                    {
+                                        for (i = 0; i < carts.length; i++) {
+                                            ammount.put(Integer.parseInt(gouwuche.getpID()), 1);
+                                        }
+                                    }
+                                }
+                            }
+
+                            //ammount.put(Integer.parseInt(carts[i++].getpID()),1);
                             order.setProductAmmout(ammount);
 
                             CreateOrder.createOrder(order);
