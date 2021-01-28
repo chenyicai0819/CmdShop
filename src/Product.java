@@ -3,6 +3,7 @@ public class Product {
     private String pName;
     private String price;
     private String pDesc;
+    static private int pNum;
 
     public String getpID() {
         return pID;
@@ -35,4 +36,14 @@ public class Product {
     public void setpDesc(String pDesc) {
         this.pDesc = pDesc;
     }
+
+    public static int getpNum() {
+        return pNum;
+    }
+
+    public static void setpNum(int pNum) {
+        Product.pNum = pNum;
+    }
 }
+
+

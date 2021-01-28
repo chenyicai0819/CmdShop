@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class Test {
     static int count = 0;
-    static Product carts[] = new Product[3];
+    static Product carts[] = new Product[10];
     static Scanner sc = new Scanner(System.in);
+    //static Product product1=new Product();
 
     public static void main(String[] args) throws ClassNotFoundException {
 
@@ -72,7 +73,7 @@ public class Test {
                                 if (gouwuche != null) {
                                     {
                                         for (i = 0; i < carts.length; i++) {
-                                            ammount.put(Integer.parseInt(gouwuche.getpID()), 1);
+                                            ammount.put(Integer.parseInt(gouwuche.getpID()), Product.getpNum());
                                         }
                                     }
                                 }
@@ -109,13 +110,17 @@ public class Test {
         }
         System.out.println("请输入想要购买的商品ID添加商品到购物车");
         String pID = sc.next();
+        System.out.println("请输入想要购买的数量");
+        Product.setpNum(sc.nextInt());
+
         inProduct = null;
         inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
         Product product = readProductExcel.getProductById(pID, inProduct);
         if (count == carts.length) {
             System.out.println("购物车已满");
         } else {
-            System.out.println("所购买的商品的价格为" + product.getPrice());
+            System.out.println("所购买的商品的单价为" + product.getPrice());
+            System.out.println("所购买的商品总价为"+Integer.parseInt(product.getPrice()) * product.getpNum());
             if (product != null) {
                 carts[count++] = product;
             }
@@ -124,11 +129,13 @@ public class Test {
 
     public static void viewCarts() {
         System.out.println("这是您的购物车");
+        System.out.println(count);
         for (Product gouwuche : carts) {
             if (gouwuche != null) {
                 System.out.print(gouwuche.getpID());
                 System.out.print("\t" + gouwuche.getpName());
-                System.out.print("\t" + gouwuche.getPrice());
+                System.out.print("\t*"+gouwuche.getpNum());
+                System.out.print("\t" + Integer.parseInt(gouwuche.getPrice())*gouwuche.getpNum());
                 System.out.println("\t" + gouwuche.getpDesc());
             }
         }
