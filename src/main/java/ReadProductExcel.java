@@ -27,7 +27,7 @@ public class ReadProductExcel {
                     } else if (k == 1) {
                         product.setpName(this.getValue(cell));
                     } else if (k == 2) {
-                        product.setPrice(this.getValue(cell));
+                        product.setPrice(Float.valueOf(this.getValue(cell)));//把字符串转Float
                     } else if (k == 3) {
                         product.setpDesc(this.getValue(cell));
                     }
@@ -57,7 +57,7 @@ public class ReadProductExcel {
                     } else if (k == 1) {
                         product.setpName(this.getValue(cell));
                     } else if (k == 2) {
-                        product.setPrice(this.getValue(cell));//把字符串转Float
+                        product.setPrice(Float.valueOf(this.getValue(cell)));//把字符串转Float
                     } else if (k == 3) {
                         product.setpDesc(this.getValue(cell));
                     }

@@ -9,6 +9,8 @@ public class Test {
     static Product carts[] = new Product[10];
     static Scanner sc = new Scanner(System.in);
     //static Product product1=new Product();
+    static Map<Integer,Integer> ammount=new HashMap<Integer,Integer>();
+    static Map<Integer,Float> totalAmountPerProduct=new HashMap<Integer,Float>();
 
     public static void main(String[] args) throws ClassNotFoundException {
 
@@ -64,22 +66,15 @@ public class Test {
                                     products[j] = carts[j];
                                 }
                             }
-                            order.setProducts(products);
-                            //下订单
-
-                            Map<Integer,Integer> ammount=new HashMap<Integer,Integer>();
-                            for (Product gouwuche : carts) {
-                                if (gouwuche != null) {
-                                    {
-                                        for (i = 0; i < carts.length; i++) {
-                                            ammount.put(Integer.parseInt(gouwuche.getpID()), Product.getpNum());
-                                        }
-                                    }
-                                }
+                            order.setProducts(products);//订单关联商品：实际上应该进行处理，把数组中为null的去除
+                            //下订单（创建Excel）
+                            order.setProductAmmout(ammount);//关联购买数量
+                            for(Product product:products){
+                                //如何拿到哪个商品的购买数量
+                                int cou=ammount.get(Integer.parseInt(product.getpID()));//多态：向上转型
+                                totalAmountPerProduct.put(Integer.parseInt(product.getpID()),product.getPrice()*cou);
                             }
-
-                            //ammount.put(Integer.parseInt(carts[i++].getpID()),1);
-                            order.setProductAmmout(ammount);
+                            order.setTotalAmountPerProduct(totalAmountPerProduct);//关联每个商品的总价
 
                             CreateOrder.createOrder(order);
 
@@ -107,19 +102,22 @@ public class Test {
             System.out.print("\t" + newproduct.getPrice());
             System.out.println("\t" + newproduct.getpDesc());
         }
-        System.out.println("请输入想要购买的商品ID添加商品到购物车");
-        String pID = sc.next();
-        System.out.println("请输入想要购买的数量");
-        Product.setpNum(sc.nextInt());
+        System.out.println("请输入商品ID以及购买数量，商品ID和数量用逗号隔开，例：1111,4，把该商品加入购物车：");
+        String pInfo=sc.next();
+        String str[]=pInfo.split(",");
+
+        String pId = str[0];//商品ID
+        String num=str[1];//购买数量
+
+        ammount.put(Integer.parseInt(pId),Integer.parseInt(num));
 
         inProduct = null;
         inProduct = Class.forName("Test").getResourceAsStream("/product.xlsx");
-        Product product = readProductExcel.getProductById(pID, inProduct);
+        Product product = readProductExcel.getProductById(pId, inProduct);
         if (count == carts.length) {
             System.out.println("购物车已满");
         } else {
             System.out.println("所购买的商品的单价为" + product.getPrice());
-            System.out.println("所购买的商品总价为"+Integer.parseInt(product.getPrice()) * product.getpNum());
             if (product != null) {
                 carts[count++] = product;
             }
@@ -133,8 +131,7 @@ public class Test {
             if (gouwuche != null) {
                 System.out.print(gouwuche.getpID());
                 System.out.print("\t" + gouwuche.getpName());
-                System.out.print("\t*"+gouwuche.getpNum());
-                System.out.print("\t" + Integer.parseInt(gouwuche.getPrice())*gouwuche.getpNum());
+                System.out.print("\t" + gouwuche.getPrice());
                 System.out.println("\t" + gouwuche.getpDesc());
             }
         }
