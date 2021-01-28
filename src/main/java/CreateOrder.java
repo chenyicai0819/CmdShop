@@ -64,7 +64,9 @@ public class CreateOrder {
                         int productNum=ammount.get(pId);
                         cell.setCellValue(productNum);
                     }else if(j==3){
-                        //cell.setCellValue(order.getProducts()[i].getPrice());
+                        Map<Integer, Float> totalAmountPerProduct = order.getTotalAmountPerProduct();
+                        float productTotalPay = totalAmountPerProduct.get(pId);
+                        cell.setCellValue(productTotalPay);
                     }else if(j==4){
                         //cell.setCellValue(order.getFinalPay());
                     }else if(j==5){
